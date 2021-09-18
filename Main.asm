@@ -4,6 +4,7 @@ output = $fd
 *=$033c
         lda #$00
         tay
+        tax
         sta input
         sta output
         lda #$c0
@@ -16,20 +17,8 @@ loop    lda (input),y
         inc input
         inc output
 
-        lda (input),y
-        sta (output),y
-        inc input
-        inc output
-
-        lda (input),y
-        sta (output),y
-        inc input
-        inc output
-
-        lda (input),y
-        sta (output),y
-        inc input
-        inc output
+        inx
+        bne loop
 
         rts
 
