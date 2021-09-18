@@ -18,7 +18,7 @@
     <AutoLaunchName>MemMon.prg</AutoLaunchName>
     <NoSingleFileBuild>False</NoSingleFileBuild>
     <CreatedWithVersion>CBM prg Studio 3.14.0</CreatedWithVersion>
-    <HasGitRepo>False</HasGitRepo>
+    <HasGitRepo>True</HasGitRepo>
     <GitIgnoreList />
     <Cartridge>
         <CrtBuildingCartridge>False</CrtBuildingCartridge>
@@ -43,7 +43,6 @@
     <BuildList>
         <FileName>Main.asm</FileName>
         <FileName>Main.asm</FileName>
-        <FileName>Smooth Text.asm</FileName>
     </BuildList>
     <DetermineBuildOrder>0</DetermineBuildOrder>
     <PaddingByte>0</PaddingByte>
@@ -61,17 +60,6 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>True</Topmost>
-            <FileOpen>True</FileOpen>
-        </SourceFile>
-        <SourceFile>
-            <Name>Smooth Text.asm</Name>
-            <PrgName />
-            <FileType>2</FileType>
-            <IncludeInBuild>False</IncludeInBuild>
-            <Regions />
-            <Breakpoints />
-            <Bookmarks />
-            <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
     </SourceFiles>

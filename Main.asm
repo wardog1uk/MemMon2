@@ -1,11 +1,36 @@
-scnbase = $0400
+input = $fb
+output = $fd
 
 *=$033c
-        ldy #$00
-loop    lda screen,y
-        sta scnbase,y
-        iny        
-        bne loop
+        lda #$00
+        tay
+        sta input
+        sta output
+        lda #$c0
+        sta input+1
+        lda #$04
+        sta output+1
+
+loop    lda (input),y
+        sta (output),y
+        inc input
+        inc output
+
+        lda (input),y
+        sta (output),y
+        inc input
+        inc output
+
+        lda (input),y
+        sta (output),y
+        inc input
+        inc output
+
+        lda (input),y
+        sta (output),y
+        inc input
+        inc output
+
         rts
 
 *=$c000
