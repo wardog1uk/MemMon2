@@ -4,6 +4,9 @@ scrnram = $0400
 
 
 *=$033c
+        lda #$00
+        sta $d021
+
         lda #<data
         sta input
         lda #>data
