@@ -31,7 +31,9 @@ next1   inc output
 
 next2   jmp loop
 
-exit    rts
+exit    jsr $ffe4
+        beq exit
+        rts
 
 *=$c000
 data    BYTE $A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$8D,$85,$8D,$8F,$92,$99,$A0,$8D,$8F,$8E,$89,$94,$8F,$92,$A0,$B2,$B0,$B2,$B1,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$86,$B1
