@@ -1,3 +1,5 @@
+##{0:0:0:Main.prg}C:\Users\jonat\Downloads\c64\work\MemMon\Main.asm
+
 ; 10 SYS2304
 *=$0801
         BYTE $0B,$08,$0A,$00,$9E,$32,$33,$30,$34,$00,$00,$00
@@ -6,14 +8,18 @@ scrnram = $0400
 
 *=$0900
         ldx #250
+
+defm    copyLocation
+        lda data+/1,x
+        sta scrnram+/1,x
+        endm
+
+
 @loop   lda data-1,x
         sta scrnram-1,x
-        lda data+249,x
-        sta scrnram+249,x
-        lda data+499,x
-        sta scrnram+499,x
-        lda data+749,x
-        sta scrnram+749,x
+        copyLocation 249
+        copyLocation 499
+        copyLocation 749
         dex
         bne @loop
 
@@ -48,3 +54,4 @@ data    BYTE $A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$8D,$85,$8D,$8F,$92,$99,$A0
         BYTE $74,$30,$33,$05,$34,$67,$20,$30,$30,$20,$30,$30,$20,$30,$30,$20,$30,$30,$20,$30,$30,$20,$30,$30,$20,$30,$30,$20,$30,$30,$20,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$2E,$20
         BYTE $4C,$6F,$6F,$6F,$6F,$7A,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20,$20
         BYTE $00
+
