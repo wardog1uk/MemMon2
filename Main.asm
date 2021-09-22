@@ -1,38 +1,18 @@
-input = $fb
-output = $fd
+*=$033c
+
 scrnram = $0400
 
-
-*=$033c
-        lda #$00
-        sta $d021
-
-        lda #<data
-        sta input
-        lda #>data
-        sta input+1
-
-        lda #<scrnram
-        sta output
-        lda #>scrnram
-        sta output+1
-
-        ldx #$00
-        ldy #$00
-
-loop    lda (input),y
-        beq exit
-        sta (output),y
-
-        inc input
-        bne next1
-        inc input+1
-        
-next1   inc output
-        bne next2
-        inc output+1
-
-next2   jmp loop
+        ldx #250
+@loop   lda $c000-1,x
+        sta $0400-1,x
+        lda $c000+249,x
+        sta $0400+249,x
+        lda $c000+499,x
+        sta $0400+499,x
+        lda $c000+749,x
+        sta $0400+749,x
+        dex
+        bne @loop
 
 exit    jsr $ffe4
         beq exit
