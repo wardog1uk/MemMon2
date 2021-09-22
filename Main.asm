@@ -1,7 +1,10 @@
-*=$033c
+; 10 SYS828
+*=$0801
+        BYTE $0B,$08,$0A,$00,$9E,$38,$32,$38,$00,$00,$00
 
 scrnram = $0400
 
+*=$033c
         ldx #250
 @loop   lda data-1,x
         sta scrnram-1,x
