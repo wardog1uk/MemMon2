@@ -42,7 +42,6 @@
     </BuildEvents>
     <BuildList>
         <FileName>Main.asm</FileName>
-        <FileName>Main.asm</FileName>
     </BuildList>
     <DetermineBuildOrder>0</DetermineBuildOrder>
     <PaddingByte>0</PaddingByte>
