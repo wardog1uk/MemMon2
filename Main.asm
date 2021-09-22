@@ -3,14 +3,14 @@
 scrnram = $0400
 
         ldx #250
-@loop   lda $c000-1,x
-        sta $0400-1,x
-        lda $c000+249,x
-        sta $0400+249,x
-        lda $c000+499,x
-        sta $0400+499,x
-        lda $c000+749,x
-        sta $0400+749,x
+@loop   lda data-1,x
+        sta scrnram-1,x
+        lda data+249,x
+        sta scrnram+249,x
+        lda data+499,x
+        sta scrnram+499,x
+        lda data+749,x
+        sta scrnram+749,x
         dex
         bne @loop
 
