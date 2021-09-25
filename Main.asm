@@ -5,6 +5,12 @@
 scrnram = $0400
 
 *=$0900
+        jsr drawFrame
+        jsr waitForKeypress
+        rts
+
+
+drawFrame
         ldx #250
 @loop   lda data-1,x
         sta scrnram-1,x
@@ -16,10 +22,14 @@ scrnram = $0400
         sta scrnram+749,x
         dex
         bne @loop
-
-exit    jsr $ffe4
-        beq exit
         rts
+
+
+waitForKeypress
+        jsr $ffe4
+        beq waitForKeypress
+        rts
+
 
 *=$c000
 data    BYTE $A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$8D,$85,$8D,$8F,$92,$99,$A0,$8D,$8F,$8E,$89,$94,$8F,$92,$A0,$B2,$B0,$B2,$B1,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$86,$B1
