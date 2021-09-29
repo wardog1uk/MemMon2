@@ -122,12 +122,8 @@ lineLoop
         lda (value),y
         jsr printByte
 
-        ; increment address
         inx
-
-        ; loop until at last byte in row
-@skip   ldy col
-        cpy #30
+        cpx #$08
         bne lineLoop
 
         jsr incrementCursor
