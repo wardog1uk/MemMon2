@@ -111,27 +111,34 @@ drawLine
         jsr printByte
 
         inc col
+        ldx #$00
 
 lineLoop
         inc col
 
         ; output byte from address
-        ldy #$00
+        txa
+        tay
         lda (value),y
         jsr printByte
 
         ; increment address
-        inc value
-        ldy value
-        bne @skip
-        inc value+1
+        inx
 
         ; loop until at last byte in row
 @skip   ldy col
         cpy #30
         bne lineLoop
 
-        rts
+        ; add 8 to value
+        lda #$08
+        clc
+        adc value
+        sta value
+        bcc @done
+        inc value+1
+
+@done   rts
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
