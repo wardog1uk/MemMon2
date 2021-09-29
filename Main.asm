@@ -232,22 +232,18 @@ testDown
         cmp #DOWN_ARROW
         bne testUp
         moveDown $08
-        jmp exit
 testUp
         cmp #UP_ARROW
         bne testRight
         moveUp $08
-        jmp exit
 testRight
         cmp #RIGHT_ARROW
         bne testLeft
         moveDown $b0
-        jmp exit
 testLeft
         cmp #LEFT_ARROW
         bne testQ
         moveUp $b0
-        jmp exit
 testQ
         cmp #Q_KEY 
         bne exit
