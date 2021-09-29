@@ -116,7 +116,7 @@ drawLine
 lineLoop
         inc col
 
-        ; output byte from address
+        ; output hex value of byte from address
         txa
         tay
         lda (value),y
@@ -130,7 +130,20 @@ lineLoop
         cpy #30
         bne lineLoop
 
-        ; add 8 to value
+        jsr incrementCursor
+
+        ; output bytes
+        ldx #$00
+byteLoop
+        txa
+        tay
+        lda (value),y
+        jsr outputChar
+        inx
+        cpx #$08
+        bne byteLoop
+
+        ; move value to next row
         lda #$08
         clc
         adc value
