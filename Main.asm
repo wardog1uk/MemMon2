@@ -242,10 +242,10 @@ handleKeypress
         beq left
 
         cmp #Q_KEY 
-        sec
-        bne exit
-
         clc
+        beq exit
+
+        sec
 exit    rts
 ;-------------------------------------------------------------------------------
 
