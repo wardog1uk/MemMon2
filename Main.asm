@@ -244,38 +244,57 @@ handleKeypress
         cmp #Q_KEY 
         sec
         bne exit
-        clc
 
+        clc
 exit    rts
-
-down    moveDown $08
-up      moveUp $08
-right   moveDown $b0
-left    moveUp $b0
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-defm    moveDown
-        lda base
+down    ldx #$08
+        jsr moveDown
+        sec
+        rts
+
+up      ldx #$08
+        jsr moveUp
+        sec
+        rts
+
+right   ldx #$b0
+        jsr moveDown
+        sec
+        rts
+
+left    ldx #$b0
+        jsr moveUp
+        sec
+        rts
+
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+
+moveDown
+        txa
         clc
-        adc #/1
+        adc base
         bcc @skip
         inc base+1
 @skip   sta base
-        sec
         rts
-        endm
 
-defm    moveUp
+moveUp
         lda base
+        stx base
         sec
-        sbc #/1
+        sbc base
         bcs @skip
         dec base+1
 @skip   sta base
-        sec
         rts
-        endm
+
+;-------------------------------------------------------------------------------
+
 ;-------------------------------------------------------------------------------
 
 data    BYTE $A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$8D,$85,$8D,$8F,$92,$99,$A0,$8D,$8F,$8E,$89,$94,$8F,$92,$A0,$B2,$B0,$B2,$B1,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$86,$B1
