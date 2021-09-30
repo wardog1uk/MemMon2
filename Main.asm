@@ -228,30 +228,30 @@ moveToNextLine
 handleKeypress
         jsr GETIN
         beq handleKeypress
-testDown
+
         cmp #DOWN_ARROW
-        bne testUp
-        moveDown $08
-testUp
+        beq down
+
         cmp #UP_ARROW
-        bne testRight
-        moveUp $08
-testRight
+        beq up
+
         cmp #RIGHT_ARROW
-        bne testLeft
-        moveDown $b0
-testLeft
+        beq right
+
         cmp #LEFT_ARROW
-        bne testQ
-        moveUp $b0
-testQ
+        beq left
+
         cmp #Q_KEY 
+        sec
         bne exit
         clc
-        rts
-exit    
-        sec
-        rts
+
+exit    rts
+
+down    moveDown $08
+up      moveUp $08
+right   moveDown $b0
+left    moveUp $b0
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
@@ -262,6 +262,8 @@ defm    moveDown
         bcc @skip
         inc base+1
 @skip   sta base
+        sec
+        rts
         endm
 
 defm    moveUp
@@ -271,6 +273,8 @@ defm    moveUp
         bcs @skip
         dec base+1
 @skip   sta base
+        sec
+        rts
         endm
 ;-------------------------------------------------------------------------------
 
