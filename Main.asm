@@ -7,6 +7,7 @@ UP_ARROW = $91
 RIGHT_ARROW = $1d
 LEFT_ARROW = $9d
 Q_KEY = $51
+F1_KEY = $85
 
 col = $d3
 row = $d6
@@ -237,6 +238,9 @@ handleKeypress
         cmp #LEFT_ARROW
         beq left
 
+        cmp #F1_KEY
+        beq showHelp
+
         cmp #Q_KEY 
         clc
         beq exit
@@ -285,6 +289,11 @@ moveUp
         bcs @skip
         dec base+1
 @skip   sta base
+        rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+showHelp
         rts
 ;-------------------------------------------------------------------------------
 
