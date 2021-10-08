@@ -297,6 +297,13 @@ showHelp
         lda #13
         sta col
 
+        lda #8
+        sta row
+        lda #$05
+        sta lineStart+1
+        lda #$40
+        sta lineStart
+
         ldx #$00
 @loop   lda helpScreen,x
         jsr outputChar
