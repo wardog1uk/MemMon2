@@ -49,10 +49,10 @@ base    BYTE $ff, $ff
 
 ;-------------------------------------------------------------------------------
 resetPosition
-        ldx #$00
-        stx col
-        ldx #$02
-        stx row
+        ldy #$00
+        sty col
+        ldy #$02
+        sty row
 
         lda #>screenRam
         sta lineStart+1
@@ -111,32 +111,28 @@ drawLine
         jsr printByte
 
         inc col
-        ldx #$00
+        
+        ldx #$08
+        ldy #$00
 
 lineLoop
         inc col
 
         ; output hex value of byte from address
-        txa
-        tay
         lda (value),y
         jsr printByte
 
-        inx
-        cpx #$08
+        dex
         bne lineLoop
 
         jsr incrementCursor
 
         ; output bytes
-        ldx #$00
+        ldx #$08
 byteLoop
-        txa
-        tay
         lda (value),y
         jsr outputChar
-        inx
-        cpx #$08
+        dex
         bne byteLoop
 
         ; move value to next row
@@ -201,8 +197,8 @@ incrementCursor
 
 ;-------------------------------------------------------------------------------
 moveToNextLine
-        ldx #$00
-        stx col
+        ldy #$00
+        sty col
         inc row
         lda row
         cmp numberOfRows
