@@ -295,11 +295,13 @@ moveUp
 ;-------------------------------------------------------------------------------
 showHelpScreen
         jsr setupHelp
-
         jsr drawHelp
 
 @wait   jsr GETIN
         beq @wait
+
+        jsr setupHelp
+        jsr clearHelp
 
         sec
         rts
@@ -340,6 +342,27 @@ drawHelp
         rts
 
 pos     BYTE $0
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+clearHelp
+        lda #13
+        sta col
+        ldx #14
+@loop   ldy pos
+        lda #$20
+        jsr outputChar
+        inc pos
+        dex
+        bne @loop
+
+        jsr moveToNextLine
+
+        lda #98
+        cmp pos
+        bne clearHelp
+
+        rts
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
