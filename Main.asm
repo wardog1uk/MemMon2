@@ -239,7 +239,7 @@ handleKeypress
         beq left
 
         cmp #F1_KEY
-        beq showHelp
+        beq showHelpScreen
 
         cmp #Q_KEY 
         clc
@@ -293,7 +293,7 @@ moveUp
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-showHelp
+showHelpScreen
         lda #8
         sta row
         lda #$05
@@ -304,7 +304,17 @@ showHelp
         lda #$00
         sta pos
 
-@helploop
+        jsr drawHelp
+
+@wait   jsr GETIN
+        beq @wait
+
+        sec
+        rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+drawHelp
         lda #13
         sta col
         ldx #14
@@ -319,12 +329,8 @@ showHelp
 
         lda #98
         cmp pos
-        bne @helploop
+        bne drawHelp
 
-@wait   jsr GETIN
-        beq @wait
-
-        sec
         rts
 
 pos     BYTE $0
