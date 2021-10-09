@@ -294,9 +294,6 @@ moveUp
 
 ;-------------------------------------------------------------------------------
 showHelp
-        lda #13
-        sta col
-
         lda #8
         sta row
         lda #$05
@@ -304,18 +301,33 @@ showHelp
         lda #$40
         sta lineStart
 
-        ldx #$00
-@loop   lda helpScreen,x
+        lda #$00
+        sta pos
+
+@helploop
+        lda #13
+        sta col
+        ldx #14
+@loop   ldy pos
+        lda helpScreen,y
         jsr outputChar
-        inx
-        cpx #14
+        inc pos
+        dex
         bne @loop
+
+        jsr moveToNextLine
+
+        lda #98
+        cmp pos
+        bne @helploop
 
 @wait   jsr GETIN
         beq @wait
 
         sec
         rts
+
+pos     BYTE $0
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
