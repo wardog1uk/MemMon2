@@ -6,6 +6,7 @@ DOWN_ARROW = $11
 UP_ARROW = $91
 RIGHT_ARROW = $1d
 LEFT_ARROW = $9d
+G_Key = $47
 Q_KEY = $51
 F1_KEY = $85
 
@@ -249,7 +250,10 @@ handleKeypress
         cmp #F1_KEY
         beq showHelpScreen
 
-        cmp #Q_KEY 
+        cmp #G_KEY
+        beq go
+
+        cmp #Q_KEY
         clc
         beq exit
 
@@ -297,6 +301,12 @@ moveUp
         bcs @skip
         dec base+1
 @skip   sta base
+        rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+go
+        sec
         rts
 ;-------------------------------------------------------------------------------
 
