@@ -309,7 +309,7 @@ showHelpScreen
         beq @wait
 
         jsr setupHelp
-        jsr clearHelp
+        jsr undrawHelp
 
         sec
         rts
@@ -355,12 +355,12 @@ pos     BYTE $0
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-clearHelp
+undrawHelp
         lda #13
         sta col
         ldx #14
 @loop   ldy pos
-        lda #$20
+        lda savedScreen,y
         jsr outputChar
         inc pos
         dex
@@ -370,7 +370,7 @@ clearHelp
 
         lda #98
         cmp pos
-        bne clearHelp
+        bne undrawHelp
 
         rts
 ;-------------------------------------------------------------------------------
