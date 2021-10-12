@@ -42,8 +42,6 @@
     </BuildEvents>
     <BuildList>
         <FileName>Main.asm</FileName>
-        <FileName>test.asm</FileName>
-        <FileName>functions.asm</FileName>
     </BuildList>
     <DetermineBuildOrder>0</DetermineBuildOrder>
     <PaddingByte>0</PaddingByte>
@@ -53,17 +51,6 @@
     <!--End of screen designer settings-->
     <SourceFiles>
         <SourceFile>
-            <Name>functions.asm</Name>
-            <PrgName />
-            <FileType>2</FileType>
-            <IncludeInBuild>True</IncludeInBuild>
-            <Regions />
-            <Breakpoints />
-            <Bookmarks />
-            <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
-        </SourceFile>
-        <SourceFile>
             <Name>Main.asm</Name>
             <PrgName />
             <FileType>2</FileType>
@@ -72,17 +59,6 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>True</Topmost>
-            <FileOpen>True</FileOpen>
-        </SourceFile>
-        <SourceFile>
-            <Name>test.asm</Name>
-            <PrgName />
-            <FileType>2</FileType>
-            <IncludeInBuild>True</IncludeInBuild>
-            <Regions />
-            <Breakpoints />
-            <Bookmarks />
-            <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
     </SourceFiles>
