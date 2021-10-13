@@ -16,7 +16,7 @@
     <Author />
     <Email />
     <AutoLaunchName>MemMon.prg</AutoLaunchName>
-    <NoSingleFileBuild>False</NoSingleFileBuild>
+    <NoSingleFileBuild>True</NoSingleFileBuild>
     <CreatedWithVersion>CBM prg Studio 3.14.0</CreatedWithVersion>
     <HasGitRepo>True</HasGitRepo>
     <GitIgnoreList />
@@ -42,14 +42,38 @@
     </BuildEvents>
     <BuildList>
         <FileName>Main.asm</FileName>
+        <FileName>help.asm</FileName>
+        <FileName>data.asm</FileName>
     </BuildList>
-    <DetermineBuildOrder>0</DetermineBuildOrder>
+    <DetermineBuildOrder>1</DetermineBuildOrder>
     <PaddingByte>0</PaddingByte>
     <!--Screen designer settings-->
     <AssyBinaryFileLocation />
     <AssyExportList />
     <!--End of screen designer settings-->
     <SourceFiles>
+        <SourceFile>
+            <Name>data.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>help.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
         <SourceFile>
             <Name>Main.asm</Name>
             <PrgName />
