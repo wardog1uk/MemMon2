@@ -41,7 +41,9 @@
         <PostBuildCommands />
     </BuildEvents>
     <BuildList>
+        <FileName>loader.asm</FileName>
         <FileName>Main.asm</FileName>
+        <FileName>keyhandler.asm</FileName>
         <FileName>help.asm</FileName>
         <FileName>data.asm</FileName>
     </BuildList>
@@ -65,6 +67,28 @@
         </SourceFile>
         <SourceFile>
             <Name>help.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>keyhandler.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>loader.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>
