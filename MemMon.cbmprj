@@ -44,6 +44,7 @@
         <FileName>loader.asm</FileName>
         <FileName>Main.asm</FileName>
         <FileName>keyhandler.asm</FileName>
+        <FileName>go.asm</FileName>
         <FileName>help.asm</FileName>
         <FileName>data.asm</FileName>
     </BuildList>
@@ -56,6 +57,17 @@
     <SourceFiles>
         <SourceFile>
             <Name>data.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>go.asm</Name>
             <PrgName />
             <FileType>2</FileType>
             <IncludeInBuild>True</IncludeInBuild>
