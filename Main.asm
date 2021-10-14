@@ -36,18 +36,17 @@ base    BYTE $ff, $ff
 ;-------------------------------------------------------------------------------
 ; move to first line of data
 resetPosition
-        ldy #$00
-        sty col
-        ldy #$02
-        sty row
-
+        lda #<screenRam
+        sta lineStart
         lda #>screenRam
         sta lineStart+1
-        lda #<screenRam
-        clc
-        adc numberOfColumns
-        adc numberOfColumns
-        sta lineStart
+
+        ldy #$00
+        sty row
+
+        jsr moveToNextLine
+        jsr moveToNextLine
+
         rts
 ;-------------------------------------------------------------------------------
 
@@ -195,15 +194,12 @@ incrementCursor
 moveToNextLine
         ldy #$00
         sty col
+
         inc row
         lda row
         cmp numberOfRows
-        bne @next
-        
-        jsr resetPosition
-        jmp @done
+        beq @done
 
-@next
         lda numberOfColumns
         clc
         adc lineStart
