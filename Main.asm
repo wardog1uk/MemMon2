@@ -1,8 +1,11 @@
+; start of screen memory
 screenRam = $0400
 
+; zero page addresses that hold the current column and row numbers
 col = $d3
 row = $d6
 
+; max rows and columns displayed
 numberOfColumns = #$28
 numberOfRows = #$1a
 
@@ -28,9 +31,13 @@ mainLoop
         jsr drawScreen
         jsr handleKeypress
         bcs mainLoop
-        rts
 
-base    BYTE $ff, $ff
+        rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; address for the byte at the top left of the screen
+base    BYTE $00, $00
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
@@ -51,6 +58,7 @@ resetPosition
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; reset value to top left address
 resetValue
         lda base
         sta value
@@ -60,6 +68,7 @@ resetValue
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; draw the screen frame
 drawFrame
         ldx #250
 @loop   lda data-1,x
@@ -76,6 +85,7 @@ drawFrame
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; output all the screen value
 drawScreen
         jsr drawLine
         jsr moveToNextLine
@@ -86,6 +96,7 @@ drawScreen
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; output the current line
 drawLine
         lda #$01
         sta col
