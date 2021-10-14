@@ -1,6 +1,9 @@
 ; start of screen memory
 screenRam = $0400
 
+; initial start address to display
+startPosition = $c000
+
 ; screen size
 screenWidth = #40
 screenHeight = #25
@@ -23,10 +26,10 @@ value = $fd
 ;-------------------------------------------------------------------------------
 *=$c000
 start
-        lda #$00
+        lda #<startPosition
         sta base
         sta value
-        lda #$c0
+        lda #>startPosition
         sta base+1
         sta value+1
 
