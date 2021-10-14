@@ -1,13 +1,18 @@
 ; start of screen memory
 screenRam = $0400
 
+; screen size
+screenWidth = #40
+screenHeight = #25
+
+; number of bytes and rows displayed
+bytesInLine = #8
+rowsOnScreen = #22
+displayedBytes = bytesInLine * rowsOnScreen
+
 ; zero page addresses that hold the current column and row numbers
 col = $d3
 row = $d6
-
-; max rows and columns displayed
-numberOfColumns = #$28
-numberOfRows = #$1a
 
 ; points to the address for the start of the current line
 lineStart = $fb
@@ -85,12 +90,12 @@ drawFrame
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-; output all the screen value
+; output all the screen values
 drawScreen
         jsr drawLine
         jsr moveToNextLine
         ldx row
-        cpx #24
+        cpx #rowsOnScreen+2
         bne drawScreen
         rts
 ;-------------------------------------------------------------------------------
@@ -194,7 +199,7 @@ readChar
 incrementCursor
         inc col
         lda col
-        cmp numberOfColumns
+        cmp screenWidth
         bne @done
         jsr moveToNextLine
 @done   rts
@@ -208,10 +213,10 @@ moveToNextLine
 
         inc row
         lda row
-        cmp numberOfRows
+        cmp screenHeight
         beq @done
 
-        lda numberOfColumns
+        lda screenWidth
         clc
         adc lineStart
         sta lineStart
