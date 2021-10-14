@@ -22,6 +22,7 @@ value = $fd
 
 ;-------------------------------------------------------------------------------
 *=$c000
+start
         lda #$00
         sta base
         sta value
@@ -30,12 +31,12 @@ value = $fd
         sta value+1
 
         jsr drawFrame
-mainLoop
+@mainLoop
         jsr resetPosition
         jsr resetValue
         jsr drawScreen
         jsr handleKeypress
-        bcs mainLoop
+        bcs @mainLoop
 
         rts
 ;-------------------------------------------------------------------------------
@@ -117,7 +118,7 @@ drawLine
         ldx #$08
         ldy #$00
 
-lineLoop
+@lineLoop
         inc col
 
         ; output hex value of byte from address
@@ -125,17 +126,17 @@ lineLoop
         jsr printByte
 
         dex
-        bne lineLoop
+        bne @lineLoop
 
         jsr incrementCursor
 
         ; output bytes
         ldx #$08
-byteLoop
+@byteLoop
         lda (value),y
         jsr outputChar
         dex
-        bne byteLoop
+        bne @byteLoop
 
         ; move value to next row
         lda #$08
