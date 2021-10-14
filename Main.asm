@@ -1,15 +1,5 @@
 screenRam = $0400
 
-GETIN = $ffe4
-
-DOWN_ARROW = $11
-UP_ARROW = $91
-RIGHT_ARROW = $1d
-LEFT_ARROW = $9d
-G_Key = $47
-Q_KEY = $51
-F1_KEY = $85
-
 col = $d3
 row = $d6
 
@@ -21,12 +11,6 @@ lineStart = $fb
 
 ; points to the address to be loaded
 value = $fd
-
-;-------------------------------------------------------------------------------
-; 2021 SYS49152
-*=$0801
-        BYTE $0B, $08, $e5, $07, $9E, $34, $39, $31, $35, $32, $00, $00, $00
-;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
 *=$c000
@@ -226,81 +210,6 @@ moveToNextLine
         
         inc lineStart+1
 @done
-        rts
-;-------------------------------------------------------------------------------
-
-;-------------------------------------------------------------------------------
-; handle input, set carry flag if continuing
-handleKeypress
-        jsr GETIN
-        beq handleKeypress
-
-        cmp #DOWN_ARROW
-        beq down
-
-        cmp #UP_ARROW
-        beq up
-
-        cmp #RIGHT_ARROW
-        beq right
-
-        cmp #LEFT_ARROW
-        beq left
-
-        cmp #F1_KEY
-        beq showHelpScreen
-
-        cmp #G_KEY
-        beq go
-
-        cmp #Q_KEY
-        clc
-        beq exit
-
-        sec
-exit    rts
-;-------------------------------------------------------------------------------
-
-;-------------------------------------------------------------------------------
-down    ldx #$08
-        jsr moveDown
-        sec
-        rts
-
-up      ldx #$08
-        jsr moveUp
-        sec
-        rts
-
-right   ldx #$b0
-        jsr moveDown
-        sec
-        rts
-
-left    ldx #$b0
-        jsr moveUp
-        sec
-        rts
-;-------------------------------------------------------------------------------
-
-;-------------------------------------------------------------------------------
-moveDown
-        txa
-        clc
-        adc base
-        bcc @skip
-        inc base+1
-@skip   sta base
-        rts
-
-moveUp
-        lda base
-        stx base
-        sec
-        sbc base
-        bcs @skip
-        dec base+1
-@skip   sta base
         rts
 ;-------------------------------------------------------------------------------
 
