@@ -6,10 +6,10 @@ row = $d6
 numberOfColumns = #$28
 numberOfRows = #$1a
 
-; points to start of the line being printed
+; points to the address for the start of the current line
 lineStart = $fb
 
-; points to the address to be loaded
+; points to the address of memory to be loaded
 value = $fd
 
 ;-------------------------------------------------------------------------------
@@ -34,6 +34,7 @@ base    BYTE $ff, $ff
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; move to first line of data
 resetPosition
         ldy #$00
         sty col
@@ -190,6 +191,7 @@ incrementCursor
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; move cursor to the next line
 moveToNextLine
         ldy #$00
         sty col
