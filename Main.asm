@@ -57,8 +57,8 @@ resetPosition
         lda #>screenRam
         sta lineStart+1
 
-        ldy #$00
-        sty row
+        lda #$00
+        sta row
 
         jsr moveToNextLine
         jsr moveToNextLine
@@ -110,6 +110,7 @@ drawLine
         lda #$01
         sta col
 
+        ;-----------------------------------------------------------------------
         ; output start address
         lda value+1
         jsr printByte
@@ -117,32 +118,40 @@ drawLine
         jsr printByte
 
         inc col
-        
-        ldx #$08
-        ldy #$00
 
+        ;-----------------------------------------------------------------------
+        ; output values
+        ldx #$00
 @lineLoop
         inc col
+        txa
+        tay
 
         ; output hex value of byte from address
         lda (value),y
         jsr printByte
 
-        dex
+        inx
+        cpx #bytesInLine
         bne @lineLoop
 
         jsr incrementCursor
 
+        ;-----------------------------------------------------------------------
         ; output bytes
-        ldx #$08
+        ldx #$00
 @byteLoop
+        txa
+        tay
         lda (value),y
         jsr outputChar
-        dex
+        inx
+        cpx #bytesInLine
         bne @byteLoop
 
-        ; move value to next row
-        lda #$08
+        ;-----------------------------------------------------------------------
+        ; move address to next row
+        lda #bytesInLine
         clc
         adc value
         sta value
