@@ -1,3 +1,11 @@
+helpScreenStartAddress = $0540
+
+helpOffsetX = 13
+helpOffsetY = 8
+helpScreenWidth = 14
+helpScreenHeight = 7
+
+offset  BYTE $0
 ;-------------------------------------------------------------------------------
 showHelpScreen
         jsr setupHelp
@@ -7,7 +15,7 @@ showHelpScreen
         beq @wait
 
         jsr setupHelp
-        jsr undrawHelp
+        jsr restoreScreen
 
         sec
         rts
@@ -15,60 +23,66 @@ showHelpScreen
 
 ;-------------------------------------------------------------------------------
 setupHelp
-        lda #8
+        lda #helpOffsetY
         sta row
-        lda #$05
+        lda #>helpScreenStartAddress
         sta lineStart+1
-        lda #$40
+        lda #<helpScreenStartAddress
         sta lineStart
 
         lda #$00
-        sta pos
+        sta offset
         rts
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
 drawHelp
-        lda #13
+        lda #helpOffsetX
         sta col
-        ldx #14
-@loop   jsr readChar
-        ldy pos
+
+        ldx #helpScreenWidth
+@loop
+        ldy col
+        lda (lineStart),y
+        ldy offset
         sta savedScreen,y
+
         lda helpScreen,y
         jsr outputChar
-        inc pos
+
+        inc offset
         dex
         bne @loop
 
         jsr moveToNextLine
 
-        lda #98
-        cmp pos
+        lda offset
+        cmp #helpScreenWidth * helpScreenHeight
         bne drawHelp
 
         rts
-
-pos     BYTE $0
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-undrawHelp
-        lda #13
+restoreScreen
+        lda #helpOffsetX
         sta col
-        ldx #14
-@loop   ldy pos
+
+        ldx #helpScreenWidth
+@loop
+        ldy offset
         lda savedScreen,y
         jsr outputChar
-        inc pos
+
+        inc offset
         dex
         bne @loop
 
         jsr moveToNextLine
 
-        lda #98
-        cmp pos
-        bne undrawHelp
+        lda offset
+        cmp #helpScreenWidth * helpScreenHeight
+        bne restoreScreen
 
         rts
 ;-------------------------------------------------------------------------------
@@ -81,7 +95,6 @@ helpScreen
         BYTE $DD,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$DD
         BYTE $DD,$11,$95,$89,$94,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$DD
         BYTE $ED,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C0,$C0,$FD
-        BYTE $00
 
 savedScreen
         BYTE $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
