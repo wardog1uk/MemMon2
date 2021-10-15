@@ -42,25 +42,25 @@ exit    rts
 
 ;-------------------------------------------------------------------------------
 ; move down one row
-down    ldx #$08
+down    ldx #bytesInLine
         jsr moveDown
         sec
         rts
 
 ; move up one row
-up      ldx #$08
+up      ldx #bytesInLine
         jsr moveUp
         sec
         rts
 
 ; move down one screen
-right   ldx #$b0
+right   ldx #displayedBytes
         jsr moveDown
         sec
         rts
 
 ; move up one screen
-left    ldx #$b0
+left    ldx #displayedBytes
         jsr moveUp
         sec
         rts
@@ -77,7 +77,7 @@ moveDown
 @skip   sta base
         rts
 
-; subctract x from top left address
+; subtract x from top left address
 moveUp
         lda base
         stx base

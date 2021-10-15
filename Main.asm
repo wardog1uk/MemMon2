@@ -1,56 +1,73 @@
+; start of screen memory
 screenRam = $0400
 
+; initial start address to display
+startPosition = $c000
+
+; screen size
+screenWidth = #40
+screenHeight = #25
+
+; number of bytes and rows displayed
+bytesInLine = #8
+rowsOnScreen = #22
+displayedBytes = bytesInLine * rowsOnScreen
+
+; zero page addresses that hold the current column and row numbers
 col = $d3
 row = $d6
 
-numberOfColumns = #$28
-numberOfRows = #$1a
-
-; points to start of the line being printed
+; points to the address for the start of the current line
 lineStart = $fb
 
-; points to the address to be loaded
+; points to the address of memory to be loaded
 value = $fd
 
 ;-------------------------------------------------------------------------------
 *=$c000
-        lda #$00
+start
+        lda #<startPosition
         sta base
         sta value
-        lda #$c0
+        lda #>startPosition
         sta base+1
         sta value+1
 
         jsr drawFrame
-mainLoop
+@mainLoop
         jsr resetPosition
         jsr resetValue
         jsr drawScreen
         jsr handleKeypress
-        bcs mainLoop
+        bcs @mainLoop
+
         rts
-
-base    BYTE $ff, $ff
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; address for the byte at the top left of the screen
+base    BYTE $00, $00
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; move to first line of data
 resetPosition
-        ldy #$00
-        sty col
-        ldy #$02
-        sty row
-
+        lda #<screenRam
+        sta lineStart
         lda #>screenRam
         sta lineStart+1
-        lda #<screenRam
-        clc
-        adc numberOfColumns
-        adc numberOfColumns
-        sta lineStart
+
+        lda #$00
+        sta row
+
+        jsr moveToNextLine
+        jsr moveToNextLine
+
         rts
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; reset value to top left address
 resetValue
         lda base
         sta value
@@ -60,6 +77,7 @@ resetValue
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; draw the screen frame
 drawFrame
         ldx #250
 @loop   lda data-1,x
@@ -76,20 +94,23 @@ drawFrame
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; output all the screen values
 drawScreen
         jsr drawLine
         jsr moveToNextLine
         ldx row
-        cpx #24
+        cpx #rowsOnScreen+2
         bne drawScreen
         rts
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; output the current line
 drawLine
         lda #$01
         sta col
 
+        ;-----------------------------------------------------------------------
         ; output start address
         lda value+1
         jsr printByte
@@ -97,32 +118,40 @@ drawLine
         jsr printByte
 
         inc col
-        
-        ldx #$08
-        ldy #$00
 
-lineLoop
+        ;-----------------------------------------------------------------------
+        ; output values
+        ldx #$00
+@lineLoop
         inc col
+        txa
+        tay
 
         ; output hex value of byte from address
         lda (value),y
         jsr printByte
 
-        dex
-        bne lineLoop
+        inx
+        cpx #bytesInLine
+        bne @lineLoop
 
         jsr incrementCursor
 
+        ;-----------------------------------------------------------------------
         ; output bytes
-        ldx #$08
-byteLoop
+        ldx #$00
+@byteLoop
+        txa
+        tay
         lda (value),y
         jsr outputChar
-        dex
-        bne byteLoop
+        inx
+        cpx #bytesInLine
+        bne @byteLoop
 
-        ; move value to next row
-        lda #$08
+        ;-----------------------------------------------------------------------
+        ; move address to next row
+        lda #bytesInLine
         clc
         adc value
         sta value
@@ -183,26 +212,24 @@ readChar
 incrementCursor
         inc col
         lda col
-        cmp numberOfColumns
+        cmp screenWidth
         bne @done
         jsr moveToNextLine
 @done   rts
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; move cursor to the next line
 moveToNextLine
         ldy #$00
         sty col
+
         inc row
         lda row
-        cmp numberOfRows
-        bne @next
-        
-        jsr resetPosition
-        jmp @done
+        cmp screenHeight
+        beq @done
 
-@next
-        lda numberOfColumns
+        lda screenWidth
         clc
         adc lineStart
         sta lineStart
