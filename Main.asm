@@ -21,22 +21,21 @@ row = $d6
 lineStart = $fb
 
 ; points to the address of memory to be loaded
-value = $fd
+memoryPointer = $fd
 
 ;-------------------------------------------------------------------------------
 *=$c000
 start
         lda #<startPosition
         sta base
-        sta value
+        sta memoryPointer
         lda #>startPosition
         sta base+1
-        sta value+1
+        sta memoryPointer+1
 
         jsr drawFrame
 @mainLoop
         jsr resetPosition
-        jsr resetValue
         jsr drawScreen
         jsr handleKeypress
         bcs @mainLoop
@@ -63,16 +62,11 @@ resetPosition
         jsr moveToNextLine
         jsr moveToNextLine
 
-        rts
-;-------------------------------------------------------------------------------
-
-;-------------------------------------------------------------------------------
-; reset value to top left address
-resetValue
         lda base
-        sta value
+        sta memoryPointer
         lda base+1
-        sta value+1
+        sta memoryPointer+1
+
         rts
 ;-------------------------------------------------------------------------------
 
@@ -112,9 +106,9 @@ drawLine
 
         ;-----------------------------------------------------------------------
         ; output start address
-        lda value+1
+        lda memoryPointer+1
         jsr printByte
-        lda value
+        lda memoryPointer
         jsr printByte
 
         inc col
@@ -128,7 +122,7 @@ drawLine
         tay
 
         ; output hex value of byte from address
-        lda (value),y
+        lda (memoryPointer),y
         jsr printByte
 
         inx
@@ -143,20 +137,11 @@ drawLine
 @byteLoop
         txa
         tay
-        lda (value),y
+        lda (memoryPointer),y
         jsr outputChar
         inx
         cpx #bytesInLine
         bne @byteLoop
-
-        ;-----------------------------------------------------------------------
-        ; move address to next row
-        lda #bytesInLine
-        clc
-        adc value
-        sta value
-        bcc @done
-        inc value+1
 
 @done   rts
 ;-------------------------------------------------------------------------------
@@ -200,14 +185,6 @@ outputChar
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-; read byte from current screen position to A
-readChar
-        ldy col
-        lda (lineStart),y
-        rts
-;-------------------------------------------------------------------------------
-
-;-------------------------------------------------------------------------------
 ; move cursor right one place
 incrementCursor
         inc col
@@ -219,23 +196,35 @@ incrementCursor
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-; move cursor to the next line
 moveToNextLine
+        ; check for end of screen
+        ldy row
+        iny
+        cpy screenHeight
+        beq @done
+
+        ; increment row
+        sty row
+
+        ; set column position to 0
         ldy #$00
         sty col
 
-        inc row
-        lda row
-        cmp screenHeight
-        beq @done
-
-        lda screenWidth
+        ; update start of line
+        lda lineStart
         clc
-        adc lineStart
+        adc screenWidth
         sta lineStart
-        bcc @done
-        
+        bcc @skip
         inc lineStart+1
-@done
-        rts
+
+@skip   ; move pointer to next row
+        lda memoryPointer
+        clc
+        adc #bytesInLine
+        sta memoryPointer
+        bcc @done
+        inc memoryPointer+1
+
+@done   rts
 ;-------------------------------------------------------------------------------
