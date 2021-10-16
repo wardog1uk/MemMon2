@@ -89,7 +89,7 @@ restoreScreen
 
 helpScreen
         BYTE $F0,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C0,$C0,$EE
-        BYTE $DD,$15,$10,$AF,$04,$0F,$17,$0E,$A0,$A0,$A0,$A0,$A0,$DD
+        BYTE $DD,$15,$10,$AF,$04,$0F,$17,$0E,$A0,$A0,$2B,$AF,$2D,$DD
         BYTE $DD,$0C,$05,$06,$14,$AF,$12,$09,$07,$08,$14,$A0,$A0,$DD
         BYTE $DD,$07,$8F,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$DD
         BYTE $DD,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$DD
