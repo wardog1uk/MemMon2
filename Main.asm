@@ -36,7 +36,6 @@ start
         jsr drawFrame
 @mainLoop
         jsr resetPosition
-        jsr resetPointer
         jsr drawScreen
         jsr handleKeypress
         bcs @mainLoop
@@ -63,16 +62,11 @@ resetPosition
         jsr moveToNextLine
         jsr moveToNextLine
 
-        rts
-;-------------------------------------------------------------------------------
-
-;-------------------------------------------------------------------------------
-; reset memoryPointer to top left address
-resetPointer
         lda base
         sta memoryPointer
         lda base+1
         sta memoryPointer+1
+
         rts
 ;-------------------------------------------------------------------------------
 
