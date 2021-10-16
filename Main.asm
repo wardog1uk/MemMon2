@@ -143,15 +143,6 @@ drawLine
         cpx #bytesInLine
         bne @byteLoop
 
-        ;-----------------------------------------------------------------------
-        ; move address to next row
-        lda #bytesInLine
-        clc
-        adc memoryPointer
-        sta memoryPointer
-        bcc @done
-        inc memoryPointer+1
-
 @done   rts
 ;-------------------------------------------------------------------------------
 
@@ -205,8 +196,17 @@ incrementCursor
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-; move cursor to the next line
 moveToNextLine
+        ; move pointer to next row
+        lda #bytesInLine
+        clc
+        adc memoryPointer
+        sta memoryPointer
+        bcc @skip
+        inc memoryPointer+1
+
+@skip
+        ; move cursor to the next row
         ldy #$00
         sty col
 
@@ -220,7 +220,7 @@ moveToNextLine
         adc lineStart
         sta lineStart
         bcc @done
-        
+
         inc lineStart+1
 @done
         rts
