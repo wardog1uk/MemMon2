@@ -1,4 +1,4 @@
-helpScreenStartAddress = $0540
+helpScreenLineStart = $0540
 
 helpOffsetX = 13
 helpOffsetY = 8
@@ -25,9 +25,9 @@ showHelpScreen
 setupHelp
         lda #helpOffsetY
         sta row
-        lda #>helpScreenStartAddress
+        lda #>helpScreenLineStart
         sta lineStart+1
-        lda #<helpScreenStartAddress
+        lda #<helpScreenLineStart
         sta lineStart
 
         lda #$00
