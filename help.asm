@@ -1,4 +1,4 @@
-helpScreenStartAddress = $0540
+helpScreenLineStart = $0540
 
 helpOffsetX = 13
 helpOffsetY = 8
@@ -25,9 +25,9 @@ showHelpScreen
 setupHelp
         lda #helpOffsetY
         sta row
-        lda #>helpScreenStartAddress
+        lda #>helpScreenLineStart
         sta lineStart+1
-        lda #<helpScreenStartAddress
+        lda #<helpScreenLineStart
         sta lineStart
 
         lda #$00
@@ -86,21 +86,3 @@ restoreScreen
 
         rts
 ;-------------------------------------------------------------------------------
-
-helpScreen
-        BYTE $F0,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C0,$C0,$EE
-        BYTE $DD,$15,$10,$AF,$04,$0F,$17,$0E,$A0,$A0,$2B,$AF,$2D,$DD
-        BYTE $DD,$0C,$05,$06,$14,$AF,$12,$09,$07,$08,$14,$A0,$A0,$DD
-        BYTE $DD,$07,$8F,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$DD
-        BYTE $DD,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$DD
-        BYTE $DD,$11,$95,$89,$94,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$A0,$DD
-        BYTE $ED,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C3,$C0,$C0,$FD
-
-savedScreen
-        BYTE $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-        BYTE $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-        BYTE $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-        BYTE $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-        BYTE $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-        BYTE $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
-        BYTE $00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00,$00
