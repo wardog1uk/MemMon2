@@ -7,6 +7,8 @@ LEFT_ARROW = $9d
 G_KEY = $47
 Q_KEY = $51
 F1_KEY = $85
+PLUS_KEY = $2b
+MINUS_KEY = $2d
 
 ;-------------------------------------------------------------------------------
 ; handle input, set carry flag if continuing
@@ -25,6 +27,12 @@ handleKeypress
 
         cmp #LEFT_ARROW
         beq left
+
+        cmp #PLUS_KEY
+        beq plus
+
+        cmp #MINUS_KEY
+        beq minus
 
         cmp #F1_KEY
         beq showHelpScreen
@@ -61,6 +69,18 @@ right   ldx #displayedBytes
 
 ; move up one screen
 left    ldx #displayedBytes
+        jsr moveUp
+        sec
+        rts
+
+; move down one byte
+plus    ldx #1
+        jsr moveDown
+        sec
+        rts
+
+; move up one byte
+minus   ldx #1
         jsr moveUp
         sec
         rts
