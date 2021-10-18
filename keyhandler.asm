@@ -36,7 +36,7 @@ handleKeypress
         cmp #F1_KEY
         beq showHelpScreen
 
-        cmp #Q_KEY 
+        cmp #Q_KEY
         clc
         beq exit
 
@@ -47,44 +47,44 @@ exit    rts
 ;-------------------------------------------------------------------------------
 ; move down one row
 down    ldx #bytesInLine
-        jsr moveDown
+        jsr moveForward
         sec
         rts
 
 ; move up one row
 up      ldx #bytesInLine
-        jsr moveUp
+        jsr moveBack
         sec
         rts
 
 ; move down one screen
 right   ldx #displayedBytes
-        jsr moveDown
+        jsr moveForward
         sec
         rts
 
 ; move up one screen
 left    ldx #displayedBytes
-        jsr moveUp
+        jsr moveBack
         sec
         rts
 
-; move down one byte
+; move forward one byte
 plus    ldx #1
-        jsr moveDown
+        jsr moveForward
         sec
         rts
 
-; move up one byte
+; move back one byte
 minus   ldx #1
-        jsr moveUp
+        jsr moveBack
         sec
         rts
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-; add x to top left address
-moveDown
+; add x to address displayed at the top left
+moveForward
         txa
         clc
         adc base
@@ -93,8 +93,8 @@ moveDown
 @skip   sta base
         rts
 
-; subtract x from top left address
-moveUp
+; subtract x from address displayed at the top left
+moveBack
         lda base
         stx base
         sec
