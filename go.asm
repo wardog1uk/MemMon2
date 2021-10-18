@@ -15,6 +15,9 @@ go
 @wait   jsr GETIN
         beq @wait
 
+        jsr setupGo
+        jsr hideGoWindow
+
         sec
         rts
 ;-------------------------------------------------------------------------------
@@ -55,6 +58,30 @@ drawGo
         lda offset
         cmp #goScreenWidth * goScreenHeight
         bne drawGo
+
+        rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+hideGoWindow
+        lda #goOffsetX
+        sta col
+
+        ldx #goScreenWidth
+@loop
+        ldy offset
+        lda savedScreen,y
+        jsr outputChar
+
+        inc offset
+        dex
+        bne @loop
+
+        jsr moveToNextLine
+
+        lda offset
+        cmp #goScreenWidth * goScreenHeight
+        bne hideGoWindow
 
         rts
 ;-------------------------------------------------------------------------------

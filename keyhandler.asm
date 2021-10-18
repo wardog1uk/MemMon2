@@ -16,6 +16,9 @@ handleKeypress
         jsr GETIN
         beq handleKeypress
 
+        cmp #G_KEY
+        beq go
+
         cmp #DOWN_ARROW
         beq down
 
@@ -36,9 +39,6 @@ handleKeypress
 
         cmp #F1_KEY
         beq showHelpScreen
-
-        cmp #G_KEY
-        beq go
 
         cmp #Q_KEY
         clc
