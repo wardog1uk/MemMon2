@@ -59,6 +59,28 @@ drawGo
         cmp #goScreenWidth * goScreenHeight
         bne drawGo
 
+        jsr drawGoValue
+
+        rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; draw current base value
+drawGoValue
+        jsr setupGo
+        jsr moveToNextLine
+        jsr moveToNextLine
+        
+        ldx #goOffsetX
+        inx
+        inx
+        stx col
+
+        lda base+1
+        jsr printByte
+        lda base
+        jsr printByte
+
         rts
 ;-------------------------------------------------------------------------------
 
