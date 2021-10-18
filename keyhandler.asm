@@ -39,7 +39,7 @@ handleKeypress
 
         cmp #G_KEY
         beq go
-                
+
         cmp #Q_KEY
         clc
         beq exit
