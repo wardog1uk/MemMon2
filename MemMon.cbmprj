@@ -43,9 +43,9 @@
     <BuildList>
         <FileName>loader.asm</FileName>
         <FileName>Main.asm</FileName>
-        <FileName>go.asm</FileName>
         <FileName>keyhandler.asm</FileName>
         <FileName>help.asm</FileName>
+        <FileName>go.asm</FileName>
         <FileName>data.asm</FileName>
     </BuildList>
     <DetermineBuildOrder>1</DetermineBuildOrder>
@@ -63,7 +63,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>True</Topmost>
+            <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
@@ -96,7 +96,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>False</Topmost>
+            <Topmost>True</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
@@ -119,7 +119,7 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>False</FileOpen>
+            <FileOpen>True</FileOpen>
         </SourceFile>
     </SourceFiles>
 </Project>
