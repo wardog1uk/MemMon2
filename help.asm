@@ -1,7 +1,7 @@
-helpScreenLineStart = $0540
+helpScreenLineStart = screenRam + helpOffsetY * screenWidth
 
 helpOffsetX = 13
-helpOffsetY = 8
+helpOffsetY = 9
 helpScreenWidth = 14
 helpScreenHeight = 7
 
