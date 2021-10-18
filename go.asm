@@ -1,4 +1,4 @@
-goScreenLineStart = $0590
+goScreenLineStart = screenRam + goOffsetY * screenWidth
 
 goOffsetX = 16
 goOffsetY = 10
