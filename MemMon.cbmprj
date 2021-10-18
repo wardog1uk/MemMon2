@@ -43,8 +43,8 @@
     <BuildList>
         <FileName>loader.asm</FileName>
         <FileName>Main.asm</FileName>
-        <FileName>keyhandler.asm</FileName>
         <FileName>go.asm</FileName>
+        <FileName>keyhandler.asm</FileName>
         <FileName>help.asm</FileName>
         <FileName>data.asm</FileName>
     </BuildList>
@@ -63,7 +63,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>False</Topmost>
+            <Topmost>True</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
@@ -108,7 +108,7 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
+            <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>Main.asm</Name>
@@ -118,8 +118,8 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>True</Topmost>
-            <FileOpen>True</FileOpen>
+            <Topmost>False</Topmost>
+            <FileOpen>False</FileOpen>
         </SourceFile>
     </SourceFiles>
 </Project>
