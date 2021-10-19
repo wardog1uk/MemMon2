@@ -35,7 +35,7 @@ handleKeypress
         beq minus
 
         cmp #F1_KEY
-        beq showHelpScreen
+        beq jumpToHelp
 
         cmp #G_KEY
         beq jumpToGo
@@ -51,6 +51,9 @@ exit    rts
 ;-------------------------------------------------------------------------------
 jumpToGo
         jmp showGoScreen
+
+jumpToHelp
+        jmp showHelpScreen
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
