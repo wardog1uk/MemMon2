@@ -10,8 +10,7 @@ showGoScreen
         jsr setupGo
         jsr drawGo
 
-@wait   jsr GETIN
-        beq @wait
+        jsr handleGoInput
 
         jsr setupGo
         jsr hideGoWindow
@@ -105,5 +104,12 @@ hideGoWindow
         cmp #goScreenWidth * goScreenHeight
         bne hideGoWindow
 
+        rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+handleGoInput
+        jsr GETIN
+        beq handleGoInput
         rts
 ;-------------------------------------------------------------------------------
