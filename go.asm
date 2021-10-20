@@ -157,9 +157,18 @@ saveGoInput
         ldy #goValueOffsetX
         lda (lineStart),y
         jsr screenToByte
+        asl
+        asl
+        asl
+        asl
+        sta base+1
 
-        sta base
         iny
+        lda (lineStart),y
+        jsr screenToByte
+        clc
+        adc base+1
+        sta base+1
 
         rts
 ;-------------------------------------------------------------------------------
