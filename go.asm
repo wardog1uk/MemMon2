@@ -170,6 +170,22 @@ saveGoInput
         adc base+1
         sta base+1
 
+        iny
+        lda (lineStart),y
+        jsr screenToByte
+        asl
+        asl
+        asl
+        asl
+        sta base
+
+        iny
+        lda (lineStart),y
+        jsr screenToByte
+        clc
+        adc base
+        sta base
+
         rts
 ;-------------------------------------------------------------------------------
 
