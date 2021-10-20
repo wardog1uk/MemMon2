@@ -2,6 +2,9 @@ goScreenLineStart = screenRam + goOffsetY * screenWidth
 
 goOffsetX = 16
 goOffsetY = 10
+
+goValueOffsetX = goOffsetX + 2
+
 goScreenWidth = 8
 goScreenHeight = 5
 
@@ -70,9 +73,7 @@ drawGoValue
         jsr moveToNextLine
         jsr moveToNextLine
         
-        ldx #goOffsetX
-        inx
-        inx
+        ldx #goValueOffsetX
         stx col
 
         lda base+1
