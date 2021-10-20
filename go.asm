@@ -113,21 +113,19 @@ handleGoInput
         jsr GETIN
         beq handleGoInput
 
-        cmp #$3a
-        ; if > '9' go to @big
-        bcs @big
-        ; else convert '0'-'9' to 0-9
-        sbc #$2f
+        ; check 0-9
+        sec
+        sbc #$30
+        cmp #10
+        bcc @done
 
-@big    cmp #$41
-        ; if < 'A'
-        bcc @small
-        ; else convert 'A'-'F' to 10-15
-        sbc #$37
-
-@small  cmp #$10
-        ; if > 15 then invalid hex number, go back to start
+        ; check A-F
+        sbc #$11
+        cmp #6
         bcs handleGoInput
+        adc #10
 
+@done
+        ; A is 0-15
         rts
 ;-------------------------------------------------------------------------------
