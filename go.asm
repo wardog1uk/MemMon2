@@ -110,9 +110,18 @@ hideGoWindow
 
 ;-------------------------------------------------------------------------------
 handleGoInput
+        ldx #goValueOffsetX
+        stx col
+        ldx #$04
+
+@loop
+        ; store x on stack
+        txa
+        pha
+
         ; wait for input
-        jsr GETIN
-        beq handleGoInput
+@input  jsr GETIN
+        beq @input
 
         ; check 0-9
         sec
@@ -123,10 +132,20 @@ handleGoInput
         ; check A-F
         sbc #$11
         cmp #6
-        bcs handleGoInput
+        bcs @loop
         adc #10
 
 @done
         ; A is 0-15
+        jsr byteToScreen
+        jsr outputChar
+
+        ; restore x
+        pla
+        tax
+        
+        dex
+        bne @loop
+
         rts
 ;-------------------------------------------------------------------------------
