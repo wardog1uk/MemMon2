@@ -14,6 +14,7 @@ showGoScreen
         jsr drawGo
 
         jsr handleGoInput
+        jsr saveGoInput
 
         jsr setupGo
         jsr hideGoWindow
@@ -148,4 +149,29 @@ handleGoInput
         bne @loop
 
         rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; retrieve address from screen and save it to base address
+saveGoInput
+        ldy #goValueOffsetX
+        lda (lineStart),y
+        jsr screenToByte
+
+        sta base
+        iny
+
+        rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; convert A from screen code to its value
+; A must be '0'-'9' or 'A'-'F'
+screenToByte
+        clc
+        adc #$09
+        cmp #$10
+        bcc @done
+        sbc #$39
+@done   rts
 ;-------------------------------------------------------------------------------
