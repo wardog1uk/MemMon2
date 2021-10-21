@@ -115,6 +115,10 @@ handleGoInput
         sty col
         ldx #$04
 
+        lda (lineStart),y
+        adc #$80
+        sta (lineStart),y
+
 @loop
         ; store x on stack
         txa
@@ -146,6 +150,11 @@ handleGoInput
         ; A is 0-15
         jsr byteToScreen
         jsr outputChar
+
+        ldy col
+        lda (lineStart),y
+        adc #$80
+        sta (lineStart),y
 
         dex
         bne @loop
