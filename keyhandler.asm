@@ -9,6 +9,7 @@ Q_KEY = $51
 F1_KEY = $85
 PLUS_KEY = $2b
 MINUS_KEY = $2d
+SPACE_KEY = $20
 
 ;-------------------------------------------------------------------------------
 ; handle input, set carry flag if continuing

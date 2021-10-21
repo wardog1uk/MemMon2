@@ -135,6 +135,21 @@ handleGoInput
         tax
         tya
 
+        ; if space then use current value
+        cmp #SPACE_KEY
+        bne @skip
+        ldy col
+        lda (lineStart),y
+        sec
+        sbc #$80
+
+        ; convert character's screen code back to petscii
+        cmp #$07
+        bcs @skip
+        clc
+        adc #$40
+
+@skip
         ; check 0-9
         sec
         sbc #$30
