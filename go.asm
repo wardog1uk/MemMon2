@@ -111,8 +111,8 @@ hideGoWindow
 
 ;-------------------------------------------------------------------------------
 handleGoInput
-        ldx #goValueOffsetX
-        stx col
+        ldy #goValueOffsetX
+        sty col
         ldx #$04
 
 @loop
@@ -123,6 +123,12 @@ handleGoInput
         ; wait for input
 @input  jsr GETIN
         beq @input
+
+        ; restore x
+        tay
+        pla
+        tax
+        tya
 
         ; check 0-9
         sec
@@ -141,10 +147,6 @@ handleGoInput
         jsr byteToScreen
         jsr outputChar
 
-        ; restore x
-        pla
-        tax
-        
         dex
         bne @loop
 
