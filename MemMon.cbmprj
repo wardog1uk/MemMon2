@@ -47,6 +47,7 @@
         <FileName>help.asm</FileName>
         <FileName>go.asm</FileName>
         <FileName>data.asm</FileName>
+        <FileName>functions.asm</FileName>
     </BuildList>
     <DetermineBuildOrder>1</DetermineBuildOrder>
     <PaddingByte>0</PaddingByte>
@@ -64,6 +65,17 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
+            <FileOpen>True</FileOpen>
+        </SourceFile>
+        <SourceFile>
+            <Name>functions.asm</Name>
+            <PrgName />
+            <FileType>2</FileType>
+            <IncludeInBuild>True</IncludeInBuild>
+            <Regions />
+            <Breakpoints />
+            <Bookmarks />
+            <Topmost>True</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
         <SourceFile>
@@ -118,7 +130,7 @@
             <Regions />
             <Breakpoints />
             <Bookmarks />
-            <Topmost>True</Topmost>
+            <Topmost>False</Topmost>
             <FileOpen>True</FileOpen>
         </SourceFile>
     </SourceFiles>
