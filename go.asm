@@ -116,6 +116,7 @@ handleGoInput
         ldx #$04
 
         lda (lineStart),y
+        clc
         adc #$80
         sta (lineStart),y
 
@@ -153,6 +154,7 @@ handleGoInput
 
         ldy col
         lda (lineStart),y
+        clc
         adc #$80
         sta (lineStart),y
 
