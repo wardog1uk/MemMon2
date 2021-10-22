@@ -78,7 +78,7 @@ drawFrame
         sta screenRam-1,x
         lda data+249,x
         sta screenRam+249,x
-        lda data+499,xc
+        lda data+499,x
         sta screenRam+499,x
         lda data+749,x
         sta screenRam+749,x
