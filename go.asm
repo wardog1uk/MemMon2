@@ -183,36 +183,31 @@ handleGoInput
 ; retrieve address from screen and save it to base address
 saveGoInput
         ldy #goValueOffsetX
-        lda (lineStart),y
-        jsr screenToByte
-        asl
-        asl
-        asl
-        asl
-        sta base+1
-
-        iny
-        lda (lineStart),y
-        jsr screenToByte
-        clc
-        adc base+1
-        sta base+1
-
-        iny
-        lda (lineStart),y
-        jsr screenToByte
-        asl
-        asl
-        asl
-        asl
-        sta base
-
-        iny
-        lda (lineStart),y
-        jsr screenToByte
-        clc
-        adc base
-        sta base
-
+        saveHighByteTo base+1
+        saveLowByteTo base+1
+        saveHighByteTo base
+        saveLowByteTo base
         rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+defm saveHighByteTo
+        lda (lineStart),y
+        jsr screenToByte
+        asl
+        asl
+        asl
+        asl
+        sta /1
+        iny
+        endm
+
+defm saveLowByteTo
+        lda (lineStart),y
+        jsr screenToByte
+        clc
+        adc /1
+        sta /1
+        iny
+        endm
 ;-------------------------------------------------------------------------------
