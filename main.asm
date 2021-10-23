@@ -1,13 +1,7 @@
 ;-------------------------------------------------------------------------------
 *=$c000
 start
-        lda #<startPosition
-        sta base
-        sta memoryPointer
-        lda #>startPosition
-        sta base+1
-        sta memoryPointer+1
-
+        jsr setup
         jsr drawFrame
 @mainLoop
         jsr resetPosition
@@ -21,6 +15,17 @@ start
 ;-------------------------------------------------------------------------------
 ; address for the byte at the top left of the screen
 base    BYTE $00, $00
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+setup
+        lda #<startPosition
+        sta base
+        sta memoryPointer
+        lda #>startPosition
+        sta base+1
+        sta memoryPointer+1
+        rts
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
