@@ -1,16 +1,3 @@
-GETIN = $ffe4
-
-DOWN_ARROW = $11
-UP_ARROW = $91
-RIGHT_ARROW = $1d
-LEFT_ARROW = $9d
-G_KEY = $47
-Q_KEY = $51
-F1_KEY = $85
-PLUS_KEY = $2b
-MINUS_KEY = $2d
-SPACE_KEY = $20
-
 ;-------------------------------------------------------------------------------
 ; handle input, set carry flag if continuing
 handleKeypress

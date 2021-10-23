@@ -1,28 +1,3 @@
-; start of screen memory
-screenRam = $0400
-
-; initial start address to display
-startPosition = $c000
-
-; screen size
-screenWidth = #40
-screenHeight = #25
-
-; number of bytes and rows displayed
-bytesInLine = #8
-rowsOnScreen = #22
-displayedBytes = bytesInLine * rowsOnScreen
-
-; zero page addresses that hold the current column and row numbers
-col = $d3
-row = $d6
-
-; points to the address for the start of the current line
-lineStart = $fb
-
-; points to the address of memory to be loaded
-memoryPointer = $fd
-
 ;-------------------------------------------------------------------------------
 *=$c000
 start
