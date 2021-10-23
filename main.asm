@@ -29,6 +29,23 @@ setup
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+; draw the screen frame
+drawFrame
+        ldx #250
+@loop   lda data-1,x
+        sta screenRam-1,x
+        lda data+249,x
+        sta screenRam+249,x
+        lda data+499,x
+        sta screenRam+499,x
+        lda data+749,x
+        sta screenRam+749,x
+        dex
+        bne @loop
+        rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
 ; move to first line of data
 resetPosition
         lda #<screenRam
@@ -47,23 +64,6 @@ resetPosition
         lda base+1
         sta memoryPointer+1
 
-        rts
-;-------------------------------------------------------------------------------
-
-;-------------------------------------------------------------------------------
-; draw the screen frame
-drawFrame
-        ldx #250
-@loop   lda data-1,x
-        sta screenRam-1,x
-        lda data+249,x
-        sta screenRam+249,x
-        lda data+499,x
-        sta screenRam+499,x
-        lda data+749,x
-        sta screenRam+749,x
-        dex
-        bne @loop
         rts
 ;-------------------------------------------------------------------------------
 
