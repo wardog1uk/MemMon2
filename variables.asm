@@ -4,6 +4,9 @@ screenRam = $0400
 ; kernal function to get input
 GETIN = $ffe4
 
+; Number of chars in keyboard buffer 
+NDX = $c6
+
 ; initial start address to display
 startPosition = $c000
 

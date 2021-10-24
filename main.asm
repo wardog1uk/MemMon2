@@ -25,6 +25,11 @@ setup
         lda #>startPosition
         sta base+1
         sta memoryPointer+1
+
+        ; clear keyboard buffer
+        lda #$00
+        sta NDX
+
         rts
 ;-------------------------------------------------------------------------------
 
