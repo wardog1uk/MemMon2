@@ -1,3 +1,5 @@
-# MemMon2
+# Memory Monitor 2021
 
-C64 Memory Monitor written in assembly using [CBM prg Studio](https://www.ajordison.co.uk/).
+Commodore 64 Memory Monitor written in assembly using [CBM prg Studio](https://www.ajordison.co.uk/).
+
+![Memory Monitor](screenshot.png)
