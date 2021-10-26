@@ -51,8 +51,7 @@ drawFrame
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-; move to first line of data
-resetPosition
+moveToTopLeftOfScreen
         lda #<screenRam
         sta lineStart
         lda #>screenRam
@@ -60,6 +59,15 @@ resetPosition
 
         lda #$00
         sta row
+        sta col
+
+        rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+; move to first line of data
+resetPosition
+        jsr moveToTopLeftOfScreen
 
         jsr moveToNextLine
         jsr moveToNextLine
