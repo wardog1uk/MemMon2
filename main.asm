@@ -34,20 +34,31 @@ setup
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-; draw the screen frame
+; draw the screen frame from compressed data (must be <256 bytes long)
 drawFrame
-        ldx #250
-@loop   lda data-1,x
-        sta screenRam-1,x
-        lda data+249,x
-        sta screenRam+249,x
-        lda data+499,x
-        sta screenRam+499,x
-        lda data+749,x
-        sta screenRam+749,x
+        jsr moveToTopLeftOfScreen
+
+        ldy #$00
+@loop
+        lda compressed,y
+        beq @done
+
+        iny
+        sty counter
+
+        ldx compressed,y
+@xloop
+        jsr outputChar
         dex
-        bne @loop
+        bne @xloop
+
+        ldy counter
+        iny
+        jmp @loop
+@done
         rts
+
+counter BYTE $00
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
