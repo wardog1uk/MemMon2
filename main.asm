@@ -168,8 +168,8 @@ outputChar
 ; move cursor right one place
 incrementCursor
         inc col
-        lda col
-        cmp screenWidth
+        ldy col
+        cpy screenWidth
         bne @done
         jsr moveToNextLine
 @done   rts
