@@ -27,6 +27,7 @@ showGoScreen
 setupGo
         lda #goOffsetY
         sta row
+
         lda #>goScreenLineStart
         sta lineStart+1
         lda #<goScreenLineStart
@@ -34,6 +35,7 @@ setupGo
 
         lda #$00
         sta offset
+
         rts
 ;-------------------------------------------------------------------------------
 
@@ -44,20 +46,25 @@ drawGo
 
         ldx #goScreenWidth
 @loop
+        ; save current byte
         ldy col
         lda (lineStart),y
         ldy offset
         sta savedScreen,y
 
+        ; output help byte
         lda goScreen,y
         jsr outputChar
 
         inc offset
+
+        ; check if finished line
         dex
         bne @loop
 
         jsr moveToNextLine
 
+        ; check if finished drawing window
         lda offset
         cmp #goScreenWidth * goScreenHeight
         bne drawGo
@@ -92,16 +99,20 @@ hideGoWindow
 
         ldx #goScreenWidth
 @loop
+        ; output saved byte
         ldy offset
         lda savedScreen,y
         jsr outputChar
 
         inc offset
+
+        ; check if finished line
         dex
         bne @loop
 
         jsr moveToNextLine
 
+        ; check if finished drawing window
         lda offset
         cmp #goScreenWidth * goScreenHeight
         bne hideGoWindow
@@ -175,9 +186,11 @@ goPosition
 ;-------------------------------------------------------------------------------
 invertGoCursor
         lda (lineStart),y
+
         clc
         adc #$80
         sta (lineStart),y
+
         rts
 ;-------------------------------------------------------------------------------
 
@@ -185,10 +198,12 @@ invertGoCursor
 ; retrieve address from screen and save it to base address
 saveGoInput
         ldy #goValueOffsetX
+
         saveHighByteTo base+1
         saveLowByteTo base+1
         saveHighByteTo base
         saveLowByteTo base
+
         rts
 ;-------------------------------------------------------------------------------
 
