@@ -52,7 +52,7 @@ drawGo
         ldy offset
         sta savedScreen,y
 
-        ; output help byte
+        ; output go byte
         lda goScreen,y
         jsr outputChar
 
@@ -112,7 +112,7 @@ hideGoWindow
 
         jsr moveToNextLine
 
-        ; check if finished drawing window
+        ; check if finished restoring screen
         lda offset
         cmp #goScreenWidth * goScreenHeight
         bne hideGoWindow
