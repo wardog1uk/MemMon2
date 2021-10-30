@@ -131,23 +131,28 @@ handleGoInput
         sec
         sbc #$80
 
-        ; convert character's screen code back to petscii
-        cmp #$07
+        ; check if not A-F
+        cmp #7
         bcs @skip
+
+        ; convert character's screen code back to petscii
         clc
         adc #$40
 
 @skip
-        ; check 0-9
         sec
         sbc #$30
+
+        ; check if 0-9
         cmp #10
         bcc @done
 
-        ; check A-F
         sbc #$11
+
+        ; restart loop if not A-F
         cmp #6
         bcs @loop
+
         adc #10
 
 @done
