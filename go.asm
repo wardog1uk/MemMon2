@@ -127,6 +127,7 @@ handleGoInput
         cmp #SPACE_KEY
         bne @skip
 
+        ldy col
         jsr invertGoCursor
 
         ; check if not A-F
