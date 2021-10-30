@@ -115,10 +115,7 @@ handleGoInput
         sty col
         ldx #$04
 
-        lda (lineStart),y
-        clc
-        adc #$80
-        sta (lineStart),y
+        jsr invertGoCursor
 
 @loop
         ; store x on stack
@@ -168,14 +165,20 @@ handleGoInput
         jsr outputChar
 
         ldy col
-        lda (lineStart),y
-        clc
-        adc #$80
-        sta (lineStart),y
+        jsr invertGoCursor
 
         dex
         bne @loop
 
+        rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+invertGoCursor
+        lda (lineStart),y
+        clc
+        adc #$80
+        sta (lineStart),y
         rts
 ;-------------------------------------------------------------------------------
 
