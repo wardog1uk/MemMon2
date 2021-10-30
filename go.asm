@@ -115,21 +115,13 @@ handleGoInput
         sty col
         jsr invertGoCursor
 
+        ; set up loop
         ldx #$04
+        stx goPosition
 @loop
-        ; store x on stack
-        txa
-        pha
-
         ; wait for input
 @input  jsr GETIN
         beq @input
-
-        ; restore x
-        tay
-        pla
-        tax
-        tya
 
         ; if space then use current value
         cmp #SPACE_KEY
@@ -166,10 +158,14 @@ handleGoInput
         ldy col
         jsr invertGoCursor
 
-        dex
+        dec goPosition
+        ldx goPosition
         bne @loop
 
         rts
+
+goPosition
+        BYTE $00
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
