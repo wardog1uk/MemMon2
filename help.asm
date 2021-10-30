@@ -15,7 +15,7 @@ showHelpScreen
         beq @wait
 
         jsr setupHelp
-        jsr restoreScreen
+        jsr hideHelpWindow
 
         sec
         rts
@@ -25,6 +25,7 @@ showHelpScreen
 setupHelp
         lda #helpOffsetY
         sta row
+
         lda #>helpScreenLineStart
         sta lineStart+1
         lda #<helpScreenLineStart
@@ -42,20 +43,25 @@ drawHelp
 
         ldx #helpScreenWidth
 @loop
+        ; save current byte
         ldy col
         lda (lineStart),y
         ldy offset
         sta savedScreen,y
 
+        ; output help byte
         lda helpScreen,y
         jsr outputChar
 
         inc offset
+
+        ; check if finished line
         dex
         bne @loop
 
         jsr moveToNextLine
 
+        ; check if finished drawing window
         lda offset
         cmp #helpScreenWidth * helpScreenHeight
         bne drawHelp
@@ -64,25 +70,29 @@ drawHelp
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-restoreScreen
+hideHelpWindow
         lda #helpOffsetX
         sta col
 
         ldx #helpScreenWidth
 @loop
+        ; output saved byte
         ldy offset
         lda savedScreen,y
         jsr outputChar
 
         inc offset
+
+        ; check if finished line
         dex
         bne @loop
 
         jsr moveToNextLine
 
+        ; check if finished restoring screen
         lda offset
         cmp #helpScreenWidth * helpScreenHeight
-        bne restoreScreen
+        bne hideHelpWindow
 
         rts
 ;-------------------------------------------------------------------------------
