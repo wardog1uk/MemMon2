@@ -126,10 +126,8 @@ handleGoInput
         ; if space then use current value
         cmp #SPACE_KEY
         bne @skip
-        ldy col
-        lda (lineStart),y
-        sec
-        sbc #$80
+
+        jsr invertGoCursor
 
         ; check if not A-F
         cmp #7
