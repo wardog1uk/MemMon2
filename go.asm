@@ -27,6 +27,7 @@ showGoScreen
 setupGo
         lda #goOffsetY
         sta row
+
         lda #>goScreenLineStart
         sta lineStart+1
         lda #<goScreenLineStart
@@ -34,6 +35,7 @@ setupGo
 
         lda #$00
         sta offset
+
         rts
 ;-------------------------------------------------------------------------------
 
@@ -44,20 +46,25 @@ drawGo
 
         ldx #goScreenWidth
 @loop
+        ; save current byte
         ldy col
         lda (lineStart),y
         ldy offset
         sta savedScreen,y
 
+        ; output help byte
         lda goScreen,y
         jsr outputChar
 
         inc offset
+
+        ; check if finished line
         dex
         bne @loop
 
         jsr moveToNextLine
 
+        ; check if finished drawing window
         lda offset
         cmp #goScreenWidth * goScreenHeight
         bne drawGo
@@ -92,16 +99,20 @@ hideGoWindow
 
         ldx #goScreenWidth
 @loop
+        ; output saved byte
         ldy offset
         lda savedScreen,y
         jsr outputChar
 
         inc offset
+
+        ; check if finished line
         dex
         bne @loop
 
         jsr moveToNextLine
 
+        ; check if finished drawing window
         lda offset
         cmp #goScreenWidth * goScreenHeight
         bne hideGoWindow
@@ -113,53 +124,45 @@ hideGoWindow
 handleGoInput
         ldy #goValueOffsetX
         sty col
+        jsr invertGoCursor
+
+        ; set up loop
         ldx #$04
-
-        lda (lineStart),y
-        clc
-        adc #$80
-        sta (lineStart),y
-
+        stx goPosition
 @loop
-        ; store x on stack
-        txa
-        pha
-
         ; wait for input
 @input  jsr GETIN
         beq @input
 
-        ; restore x
-        tay
-        pla
-        tax
-        tya
-
         ; if space then use current value
         cmp #SPACE_KEY
         bne @skip
+
         ldy col
-        lda (lineStart),y
-        sec
-        sbc #$80
+        jsr invertGoCursor
+
+        ; check if not A-F
+        cmp #7
+        bcs @skip
 
         ; convert character's screen code back to petscii
-        cmp #$07
-        bcs @skip
         clc
         adc #$40
 
 @skip
-        ; check 0-9
         sec
         sbc #$30
+
+        ; check if 0-9
         cmp #10
         bcc @done
 
-        ; check A-F
         sbc #$11
+
+        ; restart loop if not A-F
         cmp #6
         bcs @loop
+
         adc #10
 
 @done
@@ -168,13 +171,25 @@ handleGoInput
         jsr outputChar
 
         ldy col
+        jsr invertGoCursor
+
+        dec goPosition
+        ldx goPosition
+        bne @loop
+
+        rts
+
+goPosition
+        BYTE $00
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+invertGoCursor
         lda (lineStart),y
+
         clc
         adc #$80
         sta (lineStart),y
-
-        dex
-        bne @loop
 
         rts
 ;-------------------------------------------------------------------------------
@@ -183,10 +198,12 @@ handleGoInput
 ; retrieve address from screen and save it to base address
 saveGoInput
         ldy #goValueOffsetX
+
         saveHighByteTo base+1
         saveLowByteTo base+1
         saveHighByteTo base
         saveLowByteTo base
+
         rts
 ;-------------------------------------------------------------------------------
 
