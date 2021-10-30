@@ -113,10 +113,9 @@ hideGoWindow
 handleGoInput
         ldy #goValueOffsetX
         sty col
-        ldx #$04
-
         jsr invertGoCursor
 
+        ldx #$04
 @loop
         ; store x on stack
         txa
