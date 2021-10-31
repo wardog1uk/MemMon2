@@ -40,21 +40,27 @@ drawFrame
 
         ldy #$00
 @loop
+        ; loop until loaded byte is 0
         lda compressed,y
         beq @done
 
+        ; move to next byte and store position
         iny
         sty counter
 
+        ; load number of times to output byte into x
         ldx compressed,y
 @xloop
         jsr outputChar
         dex
         bne @xloop
 
+        ; retrieve y and move to next byte
         ldy counter
         iny
+
         jmp @loop
+
 @done
         rts
 
