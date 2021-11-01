@@ -28,6 +28,9 @@ handleKeypress
         cmp #G_KEY
         beq jumpToGo
 
+        cmp #E_KEY
+        beq jumpToEdit
+
         cmp #Q_KEY
         clc
         beq exit
@@ -37,6 +40,9 @@ exit    rts
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
+jumpToEdit
+        jmp showEditScreen
+
 jumpToGo
         jmp showGoScreen
 
