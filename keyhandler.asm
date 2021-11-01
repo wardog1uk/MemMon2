@@ -46,45 +46,43 @@ jumpToHelp
 
 ;-------------------------------------------------------------------------------
 ; move down one row
-down    ldx #bytesInLine
-        jsr moveForward
-        sec
-        rts
+down    moveForward #bytesInLine
 
 ; move up one row
-up      ldx #bytesInLine
-        jsr moveBack
-        sec
-        rts
+up      moveBack #bytesInLine
 
 ; move down one screen
-right   ldx #displayedBytes
-        jsr moveForward
-        sec
-        rts
+right   moveForward #displayedBytes
 
 ; move up one screen
-left    ldx #displayedBytes
-        jsr moveBack
-        sec
-        rts
+left    moveBack #displayedBytes
 
 ; move forward one byte
-plus    ldx #1
-        jsr moveForward
-        sec
-        rts
+plus    moveForward #1
 
 ; move back one byte
-minus   ldx #1
-        jsr moveBack
+minus   moveBack #1
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+defm moveForward
+        ldx #/1
+        jsr moveBaseForward
         sec
         rts
+        endm
+
+defm moveBack
+        ldx #/1
+        jsr moveBaseBack
+        sec
+        rts
+        endm
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
 ; add x to address displayed at the top left
-moveForward
+moveBaseForward
         txa
         clc
         adc base
@@ -94,7 +92,7 @@ moveForward
         rts
 
 ; subtract x from address displayed at the top left
-moveBack
+moveBaseBack
         lda base
         stx base
         sec
