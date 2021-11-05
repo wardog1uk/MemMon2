@@ -30,6 +30,9 @@ handleEditInput
 @input  jsr GETIN
         beq @input
 
+        cmp #DOWN_ARROW
+        beq editMoveDown
+
         cmp #LEFT_ARROW
         beq editMoveLeft
 
@@ -37,6 +40,11 @@ handleEditInput
         beq editMoveRight
 
         rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+editMoveDown
+@skip   jmp handleEditInput
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
