@@ -1,3 +1,9 @@
+editOffsetX
+        BYTE $00
+
+editOffsetY
+        BYTE $00
+
 ;-------------------------------------------------------------------------------
 showEditScreen
         jsr moveToTopLeftOfScreen
@@ -20,7 +26,22 @@ handleEditInput
 @input  jsr GETIN
         beq @input
 
+        cmp #RIGHT_ARROW
+        beq editMoveRight
+
         rts
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+editMoveRight
+        ldy editOffsetX
+        iny
+        cpy bytesInLine
+        beq @skip
+
+        sty editOffsetX
+
+@skip   jmp handleEditInput
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
