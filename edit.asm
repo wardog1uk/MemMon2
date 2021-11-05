@@ -42,6 +42,22 @@ handleEditInput
 
 ;-------------------------------------------------------------------------------
 editMoveLeft
+        ldy editOffsetX
+        beq @skip
+
+        dey
+        sty editOffsetX
+
+        ldy col
+        jsr invertEditValue
+
+        dey
+        dey
+        dey
+        dey
+        sty col
+        jsr invertEditValue
+
 @skip   jmp handleEditInput
 ;-------------------------------------------------------------------------------
 
