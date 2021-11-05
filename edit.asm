@@ -10,6 +10,10 @@ showEditScreen
         jsr moveToNextLine
         jsr moveToNextLine
 
+        ldy #$00
+        sty editOffsetX
+        sty editOffsetY
+
         ldy #$07
         sty col
 
@@ -40,6 +44,14 @@ editMoveRight
         beq @skip
 
         sty editOffsetX
+
+        ldy col
+        jsr invertEditValue
+
+        iny
+        iny
+        sty col
+        jsr invertEditValue
 
 @skip   jmp handleEditInput
 ;-------------------------------------------------------------------------------
