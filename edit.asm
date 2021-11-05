@@ -47,6 +47,29 @@ handleEditInput
 
 ;-------------------------------------------------------------------------------
 editMoveUp
+        ldy editOffsetY
+        beq @skip
+
+        dey
+        sty editOffsetY
+
+        ldx col
+        ldy col
+        jsr invertEditValue
+
+        ; move to previous line
+        dec row
+        lda lineStart
+        sec
+        sbc screenWidth
+        sta lineStart
+        bcs @next
+        dec lineStart+1
+
+@next   stx col
+        ldy col
+        jsr invertEditValue
+
 @skip   jmp handleEditInput
 ;-------------------------------------------------------------------------------
 
