@@ -50,8 +50,7 @@ editMoveUp
         ldy editOffsetY
         beq @skip
 
-        dey
-        sty editOffsetY
+        dec editOffsetY
 
         ldx col
         ldy col
