@@ -48,11 +48,13 @@ editMoveRight
 ; invert characters at (linestart),y and (linestart),y+1
 invertEditValue
         lda (lineStart),y
+        clc
         adc #$80
         sta (lineStart),y
 
         iny
         lda (lineStart),y
+        clc
         adc #$80
         sta (lineStart),y
 
