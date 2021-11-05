@@ -52,7 +52,6 @@ editMoveUp
 
         dec editOffsetY
 
-        ldx col
         ldy col
         jsr invertEditValue
 
@@ -65,8 +64,7 @@ editMoveUp
         bcs @skip
         dec lineStart+1
 
-@skip   stx col
-        ldy col
+@skip   ldy col
         jsr invertEditValue
 
 @done   jmp handleEditInput
@@ -81,14 +79,19 @@ editMoveDown
 
         sty editOffsetY
 
-        ldx col
         ldy col
         jsr invertEditValue
 
-        jsr moveToNextLine
+        ; move to next line
+        inc row
+        lda lineStart
+        clc
+        adc screenWidth
+        sta lineStart
+        bcc @skip
+        inc lineStart+1
 
-        stx col
-        ldy col
+@skip   ldy col
         jsr invertEditValue
 
 @done   jmp handleEditInput
