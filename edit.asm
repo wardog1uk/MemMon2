@@ -44,6 +44,23 @@ handleEditInput
 
 ;-------------------------------------------------------------------------------
 editMoveDown
+        ldy editOffsetY
+        iny
+        cpy rowsOnScreen
+        beq @skip
+
+        sty editOffsetY
+
+        ldx col
+        ldy col
+        jsr invertEditValue
+
+        jsr moveToNextLine
+
+        stx col
+        ldy col
+        jsr invertEditValue
+
 @skip   jmp handleEditInput
 ;-------------------------------------------------------------------------------
 
