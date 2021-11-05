@@ -200,7 +200,7 @@ moveToNextLine
         cpy screenHeight
         beq @done
 
-        ; increment row
+        ; store incremented row
         sty row
 
         ; set column position to 0
