@@ -48,7 +48,7 @@ handleEditInput
 ;-------------------------------------------------------------------------------
 editMoveUp
         ldy editOffsetY
-        beq @skip
+        beq @done
 
         dec editOffsetY
 
@@ -62,14 +62,14 @@ editMoveUp
         sec
         sbc screenWidth
         sta lineStart
-        bcs @next
+        bcs @skip
         dec lineStart+1
 
-@next   stx col
+@skip   stx col
         ldy col
         jsr invertEditValue
 
-@skip   jmp handleEditInput
+@done   jmp handleEditInput
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
@@ -77,7 +77,7 @@ editMoveDown
         ldy editOffsetY
         iny
         cpy rowsOnScreen
-        beq @skip
+        beq @done
 
         sty editOffsetY
 
@@ -91,13 +91,13 @@ editMoveDown
         ldy col
         jsr invertEditValue
 
-@skip   jmp handleEditInput
+@done   jmp handleEditInput
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
 editMoveLeft
         ldy editOffsetX
-        beq @skip
+        beq @done
 
         dey
         sty editOffsetX
@@ -112,7 +112,7 @@ editMoveLeft
         sty col
         jsr invertEditValue
 
-@skip   jmp handleEditInput
+@done   jmp handleEditInput
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
@@ -120,7 +120,7 @@ editMoveRight
         ldy editOffsetX
         iny
         cpy bytesInLine
-        beq @skip
+        beq @done
 
         sty editOffsetX
 
@@ -132,7 +132,7 @@ editMoveRight
         sty col
         jsr invertEditValue
 
-@skip   jmp handleEditInput
+@done   jmp handleEditInput
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
