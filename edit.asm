@@ -137,7 +137,11 @@ editMoveRight
 
         sty editOffsetX
 
-        ldy col
+        inc editAddress
+        bne @next
+        inc editAddress+1
+
+@next   ldy col
         jsr invertEditValue
 
         iny

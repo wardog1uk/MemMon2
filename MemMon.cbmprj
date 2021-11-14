@@ -100,7 +100,7 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
+            <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>help.asm</Name>
@@ -122,7 +122,7 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
+            <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>loader.asm</Name>
@@ -133,7 +133,7 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
+            <FileOpen>False</FileOpen>
         </SourceFile>
         <SourceFile>
             <Name>main.asm</Name>
@@ -155,7 +155,7 @@
             <Breakpoints />
             <Bookmarks />
             <Topmost>False</Topmost>
-            <FileOpen>True</FileOpen>
+            <FileOpen>False</FileOpen>
         </SourceFile>
     </SourceFiles>
 </Project>
