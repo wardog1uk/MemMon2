@@ -115,6 +115,11 @@ editMoveLeft
         dey
         sty editOffsetX
 
+        ldy editAddress
+        bne @skip
+        dec editAddress+1
+@skip   dec editAddress
+
         ldy col
         jsr invertEditValue
 
