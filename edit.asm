@@ -4,12 +4,22 @@ editOffsetX
 editOffsetY
         BYTE $00
 
+editAddress
+        BYTE $00,$00
+
 ;-------------------------------------------------------------------------------
 showEditScreen
         jsr moveToTopLeftOfScreen
         jsr moveToNextLine
         jsr moveToNextLine
 
+        ; store top left address
+        lda base
+        sta editAddress
+        lda base+1
+        sta editAddress+1
+
+        ; reset positions
         ldy #$00
         sty editOffsetX
         sty editOffsetY
