@@ -42,7 +42,14 @@ editMoveUp
 
         dec editOffsetY
 
-        ldy col
+        lda editAddress
+        sec
+        sbc bytesInLine
+        sta editAddress
+        bcs @next
+        dec editAddress+1
+
+@next   ldy col
         jsr invertEditValue
 
         ; move to previous line
