@@ -89,7 +89,14 @@ editMoveDown
 
         sty editOffsetY
 
-        ldy col
+        lda editAddress
+        clc
+        adc bytesInLine
+        sta editAddress
+        bcc @next
+        inc editAddress+1
+
+@next   ldy col
         jsr invertEditValue
 
         ; move to next line
