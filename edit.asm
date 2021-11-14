@@ -36,26 +36,6 @@ showEditScreen
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
-handleEditInput
-@input  jsr GETIN
-        beq @input
-
-        cmp #UP_ARROW
-        beq editMoveUp
-
-        cmp #DOWN_ARROW
-        beq editMoveDown
-
-        cmp #LEFT_ARROW
-        beq editMoveLeft
-
-        cmp #RIGHT_ARROW
-        beq editMoveRight
-
-        rts
-;-------------------------------------------------------------------------------
-
-;-------------------------------------------------------------------------------
 editMoveUp
         ldy editOffsetY
         beq @done
@@ -112,6 +92,26 @@ editMoveDown
         jsr invertEditValue
 
 @done   jmp handleEditInput
+;-------------------------------------------------------------------------------
+
+;-------------------------------------------------------------------------------
+handleEditInput
+@input  jsr GETIN
+        beq @input
+
+        cmp #UP_ARROW
+        beq editMoveUp
+
+        cmp #DOWN_ARROW
+        beq editMoveDown
+
+        cmp #LEFT_ARROW
+        beq editMoveLeft
+
+        cmp #RIGHT_ARROW
+        beq editMoveRight
+
+        rts
 ;-------------------------------------------------------------------------------
 
 ;-------------------------------------------------------------------------------
