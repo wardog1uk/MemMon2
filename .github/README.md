@@ -1,3 +1,5 @@
+***[ Replaced by https://github.com/wardog1uk/MemMon3 ]***
+
 # Memory Monitor 2021
 
 Commodore 64 Memory Monitor written in assembly using [CBM prg Studio](https://www.ajordison.co.uk/).
